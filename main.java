@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 public class main {
@@ -11,6 +12,11 @@ public class main {
         //leetcode 20th question valid parentheses
         String parenthesesString = "()[]{}";
         boolean isValidParentheses = isValid(parenthesesString);
+
+        //leetcode 125th valid palindrome
+        String validPalindrome = "A man, a plan, a canal: Panama";
+        boolean isValid = isPalindrome(validPalindrome);
+
     }
 
     /*
@@ -59,6 +65,28 @@ public class main {
         return stack.isEmpty();
     }
 
+    public static boolean isPalindrome(String s){
+        StringBuilder cleaningString = new StringBuilder();
+        for (char c: s.toCharArray()) {
+            if(Character.isLetterOrDigit(c)){
+                cleaningString.append(Character.toLowerCase(c));
+            }
+        } // Convert original string to a cleaning string
+        String processedString = cleaningString.toString();
+
+        int i = 0; // Set a pointer points first character
+        int j = processedString.length() - 1; // Set a pointer points last character
+        while (i < j){
+            if (processedString.charAt(i) != processedString.charAt(j)){
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+        }
+    }
 
 
-}
+
+
