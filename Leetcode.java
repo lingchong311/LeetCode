@@ -9,17 +9,17 @@ import java.util.*;
 public class Leetcode {
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
-         ListNode dummy = new ListNode(0);
-         dummy.next = head;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
 
-         ListNode fast = dummy;
-         ListNode slow = dummy;
+        ListNode fast = dummy;
+        ListNode slow = dummy;
 
         for (int i = 0; i <= n; i++) {
             fast = fast.next;
         }
 
-        while(fast != null){
+        while (fast != null) {
             slow = slow.next;
             fast = fast.next;
         }
@@ -38,17 +38,17 @@ public class Leetcode {
         int score = 0;//score
         int maxScore = 0;//max_scroe
 
-        while(l <= r){
-            if(tokens[l] <= power){
+        while (l <= r) {
+            if (tokens[l] <= power) {
                 power = power - tokens[l];
-                l ++;
-                score ++;
+                l++;
+                score++;
                 maxScore = Math.max(maxScore, score);
             } else if (score > 0) {
                 power = power + tokens[r];
-                score --;
-                r --;
-            }else {
+                score--;
+                r--;
+            } else {
                 break;
             }
         }
@@ -57,33 +57,33 @@ public class Leetcode {
     }
 
     public int minimumLength(String s) {
-         int l = 0;
-         int r = s.length() - 1;
+        int l = 0;
+        int r = s.length() - 1;
 
-         while(l < r && s.charAt(l) == s.charAt(r)){
-             char c = s.charAt(l);
+        while (l < r && s.charAt(l) == s.charAt(r)) {
+            char c = s.charAt(l);
 
-             while (l <= r && c == s.charAt(l)){
-                 l ++;
-             }
+            while (l <= r && c == s.charAt(l)) {
+                l++;
+            }
 
-             while (l <= r && c == s.charAt(r)){
-                 r --;
-             }
-         }
+            while (l <= r && c == s.charAt(r)) {
+                r--;
+            }
+        }
 
-         return r - l + 1;
+        return r - l + 1;
     }
 
     public String maximumOddBinaryNumber(String s) {
         StringBuilder stringBuilder = new StringBuilder();
-        int count0 = 0 , count1 = 0;
+        int count0 = 0, count1 = 0;
         for (char item : s.toCharArray()
-             ) {
+        ) {
             if (item == '0')
-                count0 ++;
+                count0++;
             else if (item == '1') {
-                count1 ++;
+                count1++;
             }
         }
 
@@ -98,7 +98,7 @@ public class Leetcode {
     public int[] sortedSquares(int[] nums) {
         int[] a = new int[nums.length];
 
-        for (int i = 0; i < nums.length; i++){
+        for (int i = 0; i < nums.length; i++) {
             a[i] = nums[i] * nums[i];
         }
 
@@ -107,13 +107,13 @@ public class Leetcode {
     }
 
     public int kthFactor(int n, int k) {
-         int count = 0;
+        int count = 0;
 
-        for (int i = 1; i <= n; i++){
-            if( n % i == 0){
-                count ++;
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                count++;
             }
-            if(count == k){
+            if (count == k) {
                 return i;
             }
         }
@@ -122,17 +122,17 @@ public class Leetcode {
     }
 
     public boolean hasCycle(ListNode head) {
-         if (head == null || head.next == null)
-             return false;
+        if (head == null || head.next == null)
+            return false;
 
         ListNode fast = head;
         ListNode slow = head;
 
-        while(fast != null && slow.next != null){
+        while (fast != null && slow.next != null) {
             fast = fast.next.next;
             slow = slow.next;
 
-            if(fast == slow)
+            if (fast == slow)
                 return true;
         }
 
@@ -152,7 +152,7 @@ public class Leetcode {
                     if (nums[right] == target) {
                         return result = new int[]{left, right};
                     }
-                    right --;
+                    right--;
                 }
             }
         }
@@ -165,22 +165,23 @@ public class Leetcode {
         int i = nums.length - 1;
         int j = i - 1;
 
-        return (nums[i] - 1)*(nums[j] - 1);
+        return (nums[i] - 1) * (nums[j] - 1);
     }
 
     public static ListNode middleNode(ListNode head) {
         ListNode node = head;
         int count = 0;
-        while (node != null){
+        while (node != null) {
             node = node.next;
-            count ++;
+            count++;
         }
-        for (int i = 0; i < count/2; i ++){
-                head = head.next;
-            }
-             return head;
+        for (int i = 0; i < count / 2; i++) {
+            head = head.next;
+        }
+        return head;
     }
-//  dp[m][n]  max(dp[m-1][n], dp[m][n-1]);
+
+    //  dp[m][n]  max(dp[m-1][n], dp[m][n-1]);
     public int minPathSum(int[][] grid) {
         int m = grid.length;
         int n = grid[0].length;
@@ -188,19 +189,19 @@ public class Leetcode {
         int[][] dp = new int[m][n];
 
 
-        for (int i = 0; i < m; i ++){
-            for (int j =0; j < n; j ++){
-                if(i == 0 && j == 0){
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0 && j == 0) {
                     dp[0][0] = grid[0][0];
                 } else if (i == 0 && j > 0) {
-                    dp[i][j] = dp[i][j-1] + grid[i][j];
+                    dp[i][j] = dp[i][j - 1] + grid[i][j];
                 } else if (i > 0 && j == 0) {
-                    dp[i][j] = dp[i-1][j] + grid[i][j];
+                    dp[i][j] = dp[i - 1][j] + grid[i][j];
                 } else
-                dp[i][j] = Math.min(dp[i - 1][j] + grid[i][j], dp[i][j - 1] + grid[i][j]);
+                    dp[i][j] = Math.min(dp[i - 1][j] + grid[i][j], dp[i][j - 1] + grid[i][j]);
             }
         }
-        return dp[m - 1][ n - 1];
+        return dp[m - 1][n - 1];
     }
 /*
 Input: candidates = [2,3,6,7], target = 7
@@ -224,7 +225,7 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         ListNode cur = head;
         ListNode temp;
 
-        while(cur != null){
+        while (cur != null) {
             temp = cur.next;
             cur.next = pre;
             pre = cur;
@@ -236,8 +237,8 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
 
 
     public int findMinArrowShots(int[][] points) {
-        Arrays.sort(points, (a,b) -> {
-            if( a[0] == b [0])
+        Arrays.sort(points, (a, b) -> {
+            if (a[0] == b[0])
                 return Integer.compare(a[1], b[1]);
             return Integer.compare(a[0], b[0]);
         });
@@ -246,12 +247,12 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         int preLast = points[0][1]; //假设第一支箭在第一个点最右边
 
         for (int i = 1; i < points.length; i++) {
-            if (preLast >= points[i][0]){
-                if(preLast > points[i][1])
+            if (preLast >= points[i][0]) {
+                if (preLast > points[i][1])
                     preLast = points[i][1];
             } else {
                 preLast = points[i][1];
-                count ++;
+                count++;
             }
         }
         return count + 1;
@@ -278,20 +279,20 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         int[] dp = new int[nums.length];
         int max = nums[0];
 
-        for (int i = 0; i < nums.length; i ++){
-            if (!deque.isEmpty() && deque.peekFirst() < (i - k)){
+        for (int i = 0; i < nums.length; i++) {
+            if (!deque.isEmpty() && deque.peekFirst() < (i - k)) {
                 deque.pollFirst();
             }
-            if (!deque.isEmpty()){
+            if (!deque.isEmpty()) {
                 dp[i] = Math.max(nums[i], nums[i] + dp[deque.peekFirst()]);
             } else {
                 dp[i] = nums[i];
             }
-            while (!deque.isEmpty() && dp[i] >= dp[deque.peekLast()]){
+            while (!deque.isEmpty() && dp[i] >= dp[deque.peekLast()]) {
                 deque.pollLast();
             }
             deque.offerLast(i);
-            if (i >= k - 1){
+            if (i >= k - 1) {
                 max = Math.max(max, dp[i]);
             }
         }
@@ -299,16 +300,15 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
     }
 
 
-
     public int minMoves(int[] nums) {
         int sum = 0;
         int min = Integer.MAX_VALUE;
 
-        for (int item: nums){
+        for (int item : nums) {
             min = Math.min(min, item);
         }
 
-        for (int item: nums){
+        for (int item : nums) {
             sum = sum + (item - min);
         }
 
@@ -322,20 +322,20 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         ListNode node = list1;
         ListNode temp;
 
-        for (int i = 0; i < a - 1; i ++){
+        for (int i = 0; i < a - 1; i++) {
             node = node.next;
         }
 
         temp = node;
 
-        for (int i = a; i < b + 2 ; i++) {
+        for (int i = a; i < b + 2; i++) {
             node = node.next;
         }
 
         ListNode tail = node;
         ListNode temp2 = list2;
 
-        while (list2.next != null ){
+        while (list2.next != null) {
             list2 = list2.next;
         }
 
@@ -348,8 +348,8 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
     }
 
     public boolean isPalindrome(ListNode head) {
-        List<Integer> list= new ArrayList<>();
-        while (head != null){
+        List<Integer> list = new ArrayList<>();
+        while (head != null) {
             list.add(head.val);
             head = head.next;
         }
@@ -357,11 +357,11 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         int left = 0;
         int right = list.size() - 1;
 
-        while(left <= right ){
+        while (left <= right) {
             if (list.get(left) != list.get(right))
                 return false;
-            left ++;
-            right --;
+            left++;
+            right--;
         }
         return true;
     }
@@ -386,7 +386,7 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         List<Integer> list = new ArrayList<>();
 
         for (int i = 0; i < nums.length; i++) {
-            int x  = Math.abs(nums[i]);
+            int x = Math.abs(nums[i]);
             if (nums[x - 1] < 0)
                 list.add(nums[x - 1]);
             nums[x - 1] = nums[x - 1] * (-1);
@@ -395,16 +395,11 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
     }
 
 
-
-
-
-
-
     public static int pivotInteger(int n) {
-        for(int i = 1; i <= n; i++){
-            int a = (1 + i) * i/2;
-            int b = (i + n) * (n - i + 1)/2;
-            if((1 + i) * i / 2 == (i + n) * (n - i + 1) / 2){
+        for (int i = 1; i <= n; i++) {
+            int a = (1 + i) * i / 2;
+            int b = (i + n) * (n - i + 1) / 2;
+            if ((1 + i) * i / 2 == (i + n) * (n - i + 1) / 2) {
                 return i;
             }
         }
@@ -415,10 +410,10 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         int i = 0;
         int j = 0;
 
-        while(i < s.length() && j < t.length()){
-            if(s.charAt(i) == t.charAt(j))
-                j ++;
-            i ++;
+        while (i < s.length() && j < t.length()) {
+            if (s.charAt(i) == t.charAt(j))
+                j++;
+            i++;
         }
         return t.length() - j;
     }
@@ -427,25 +422,25 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
     // map <num,frequency>
 
     public static int maxFrequencyElements(int[] nums) {
-        HashMap<Integer, Integer> map =  new HashMap<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
         int result = 0;
         int count = 0;
 
-        for (int num: nums){
-            if(!map.containsKey(num)){
+        for (int num : nums) {
+            if (!map.containsKey(num)) {
                 map.put(num, 1);
-            }else {
-               map.put(num, map.get(num) + 1);
+            } else {
+                map.put(num, map.get(num) + 1);
             }
         }
 
-        for (int value: map.values()){
+        for (int value : map.values()) {
             result = Math.max(result, value);
         }
 
-        for (int value: map.values()){
-            if(value == result)
-                count ++;
+        for (int value : map.values()) {
+            if (value == result)
+                count++;
         }
 
         return result * count;
@@ -454,17 +449,15 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
 
     public static int firstMissingPositive(int[] nums) {
         int index = 0;
-        while (index < nums.length){
+        while (index < nums.length) {
             int correct = nums[index] - 1;
-            if (correct != index && nums[index] < nums.length && nums[index] > 0){
-                if (nums[index] != nums[correct]){
+            if (correct != index && nums[index] < nums.length && nums[index] > 0) {
+                if (nums[index] != nums[correct]) {
                     swap(nums, index, correct);
-                }
-                else 
-                    index ++;
-            }
-            else 
-                index ++;
+                } else
+                    index++;
+            } else
+                index++;
         }
 
         for (int i = 0; i < nums.length; i++) {
@@ -475,7 +468,7 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         return nums.length + 1;
     }
 
-    private static void swap(int[] nums, int index, int correct){
+    private static void swap(int[] nums, int index, int correct) {
         int temp;
 
         temp = nums[index];
@@ -489,13 +482,13 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         int left = 0;
         int product = 1;
 
-        for (int i = 0; i < n; i ++){
+        for (int i = 0; i < n; i++) {
             int count = 0;
             product = product * nums[i];
 
-            while (product >= k && left <= i){
+            while (product >= k && left <= i) {
                 product = product / nums[left];
-                left ++;
+                left++;
             }
             count = i - left + 1;
             result = result + count;
@@ -506,10 +499,10 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
     public List<String> buildArray(int[] target, int n) {
         int index = 0;
         List<String> list = new ArrayList<>();
-        for (int i = 1; i <= n; i ++){
-            if (target[index] == i){
+        for (int i = 1; i <= n; i++) {
+            if (target[index] == i) {
                 list.add("Push");
-                index ++;
+                index++;
             } else {
                 list.add("Push");
                 list.add("Pop");
@@ -527,16 +520,16 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         int n = chars.length;
         int count = 1;
 
-        for (int i = 0; i < n; i ++){
+        for (int i = 0; i < n; i++) {
             int right = i + 1;
-             if (right < n && chars[right] == chars[i]){
-                 count ++;
-             } else {
-                 result.append(chars[i]);
-                 if (count > 1)
-                     result.append(count);
-                 count = 1;
-             }
+            if (right < n && chars[right] == chars[i]) {
+                count++;
+            } else {
+                result.append(chars[i]);
+                if (count > 1)
+                    result.append(count);
+                count = 1;
+            }
         }
 
         return result.length();
@@ -545,14 +538,14 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
     public static void moveZeroes(int[] nums) {
         int no0Index = 0;
 
-        for (int i = 0; i < nums.length; i ++){
-            if (nums[i] != 0){
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
                 nums[no0Index] = nums[i];
-                no0Index ++;
+                no0Index++;
             }
         }
 
-        for (int i = no0Index; i < nums.length; i ++){
+        for (int i = no0Index; i < nums.length; i++) {
             nums[i] = 0;
         }
     }
@@ -561,18 +554,18 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         int n = nums.length;
         int count = 0;
         Arrays.sort(nums);
-        int left  = 0;
+        int left = 0;
         int right = n - 1;
 
-        while (left < right){
-            if (nums[left] + nums[right] == k){
-                count ++;
-                left ++;
-                right --;
+        while (left < right) {
+            if (nums[left] + nums[right] == k) {
+                count++;
+                left++;
+                right--;
             } else if (nums[left] + nums[right] > k) {
-                right --;
+                right--;
             } else
-                left ++;
+                left++;
         }
 
         return count;
@@ -580,37 +573,37 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
 
     public double findMaxAverage(int[] nums, int k) {
         int sum = 0;
-        for (int i = 0; i < k; i ++){
+        for (int i = 0; i < k; i++) {
             sum = sum + nums[i];
         }
 
         int maxSum = sum;
 
-        for (int i = k; i < nums.length; i ++){
+        for (int i = k; i < nums.length; i++) {
             sum = sum + nums[i] - nums[i - k];
             maxSum = Math.max(maxSum, sum);
         }
 
-        return maxSum/k;
+        return maxSum / k;
     }
 
     public int maxVowels(String s, int k) {
         int num = 0;
 
-        for (int i = 0; i < k; i ++){
-            if(isVowelLetter(s.charAt(i))){
-                num ++;
+        for (int i = 0; i < k; i++) {
+            if (isVowelLetter(s.charAt(i))) {
+                num++;
             }
         }
 
         int maxNum = num;
 
-        for (int i = k; i < s.length(); i ++){
-            if (isVowelLetter(s.charAt(i) )){
-                num ++;
+        for (int i = k; i < s.length(); i++) {
+            if (isVowelLetter(s.charAt(i))) {
+                num++;
             }
-            if (isVowelLetter(s.charAt(i - k))){
-                num --;
+            if (isVowelLetter(s.charAt(i - k))) {
+                num--;
             }
 
             maxNum = Math.max(maxNum, num);
@@ -618,19 +611,19 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         return maxNum;
     }
 
-    private boolean isVowelLetter(char a){
-        return a =='a' || a == 'e' || a == 'i' || a == 'o' || a == 'u';
+    private boolean isVowelLetter(char a) {
+        return a == 'a' || a == 'e' || a == 'i' || a == 'o' || a == 'u';
     }
 
-    private int numOfVowelLetter(StringBuilder str){
+    private int numOfVowelLetter(StringBuilder str) {
         int count = 0;
-        for (int i = 0; i < str.length(); i ++){
+        for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == 'a'
                     || str.charAt(i) == 'e'
                     || str.charAt(i) == 'i'
                     || str.charAt(i) == 'o'
                     || str.charAt(i) == 'u')
-                count ++;
+                count++;
         }
 
         return count;
@@ -640,9 +633,9 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         s = s.trim();
         int length = 0;
 
-        for (int i = s.length() - 1; i >= 0; i --){
-            if (s.charAt(i) != ' '){
-                length ++;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) != ' ') {
+                length++;
             } else
                 break;
         }
@@ -657,24 +650,24 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         HashMap<Character, Character> map = new HashMap<>();
         HashMap<Character, Character> reverseMap = new HashMap<>();
 
-        for (int i = 0; i < s.length(); i ++){
-           if (map.containsKey(s.charAt(i))){
-               if (map.get(s.charAt(i)) != t.charAt(i)){
-                   return false;
-               }
-           } else {
-               if (reverseMap.containsKey(t.charAt(i))){
-                   return false;
-               }
+        for (int i = 0; i < s.length(); i++) {
+            if (map.containsKey(s.charAt(i))) {
+                if (map.get(s.charAt(i)) != t.charAt(i)) {
+                    return false;
+                }
+            } else {
+                if (reverseMap.containsKey(t.charAt(i))) {
+                    return false;
+                }
 
-               map.put(s.charAt(i), t.charAt(i));
-               reverseMap.put(t.charAt(i), s.charAt(i));
-           }
+                map.put(s.charAt(i), t.charAt(i));
+                reverseMap.put(t.charAt(i), s.charAt(i));
             }
+        }
         return true;
     }
 
-    public  static int getWinner(int[] arr, int k) {
+    public static int getWinner(int[] arr, int k) {
         int count = 0;
 
         int winner = arr[0];
@@ -682,13 +675,13 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         Map<Integer, Integer> map = new HashMap<>();
         List<Integer> list = new ArrayList<>();
 
-        for (int num : arr ){
+        for (int num : arr) {
             list.add(num);
             map.put(num, 0);
         }
 
-        while (!list.isEmpty()){
-            if (list.get(0) > list.get(1)){
+        while (!list.isEmpty()) {
+            if (list.get(0) > list.get(1)) {
                 winner = list.get(0);
                 remove = list.get(1);
                 map.put(winner, map.get(winner) + 1);
@@ -711,7 +704,7 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
 
     }
 
-//    public static boolean exist(char[][] board, String word) {
+    //    public static boolean exist(char[][] board, String word) {
 //        int m = board.length;
 //        int n = board[0].length;
 //        boolean res = false;
@@ -736,34 +729,35 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         int res = 0;
         int count = 0;
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '('){
-                count ++;
+            if (s.charAt(i) == '(') {
+                count++;
                 res = Math.max(count, res);
-            } else if (s.charAt(i) == ')'){
-                count --;
+            } else if (s.charAt(i) == ')') {
+                count--;
             }
         }
         return res;
     }
-//    "leEeetcode"
-    public  static String makeGood(String s) {
+
+    //    "leEeetcode"
+    public static String makeGood(String s) {
         StringBuilder str = new StringBuilder();
         Stack<Character> stack = new Stack<>();
         StringBuilder res = new StringBuilder();
 
-        for (char a : s.toCharArray()){
-            if (!stack.isEmpty() && stack.peek() != a && Character.toLowerCase(stack.peek()) == Character.toLowerCase(a)){
+        for (char a : s.toCharArray()) {
+            if (!stack.isEmpty() && stack.peek() != a && Character.toLowerCase(stack.peek()) == Character.toLowerCase(a)) {
                 stack.pop();
             } else {
                 stack.push(a);
             }
         }
 
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             str.append(stack.pop());
         }
 
-        for (int i = str.length() - 1; i >= 0 ; i--) {
+        for (int i = str.length() - 1; i >= 0; i--) {
             res.append(str.charAt(i));
         }
         return res.toString();
@@ -776,8 +770,8 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
                 nums[index] = nums[index] * (-1);
         }
         List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < nums.length; i ++){
-            if (nums[i] > 0 )
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0)
                 list.add(i + 1);
         }
         return list;
@@ -806,18 +800,18 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         int likeOne = 0;
         int likeZero = 0;
 
-        for (int item : students){
+        for (int item : students) {
             if (item == 0)
-                likeZero ++;
-             else if (item == 1)
-                likeOne ++;
+                likeZero++;
+            else if (item == 1)
+                likeOne++;
         }
 
-        for (int item : sandwiches){
+        for (int item : sandwiches) {
             if (item == 0 && likeZero > 0)
-                likeZero --;
+                likeZero--;
             else if (item == 1 && likeOne > 0)
-                likeOne --;
+                likeOne--;
             else break;
         }
 
@@ -825,30 +819,30 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
     }
 
     public static int timeRequiredToBuy(int[] tickets, int k) {
-       Queue<int []> queue = new ArrayDeque<>();
-       int time = 0;
+        Queue<int[]> queue = new ArrayDeque<>();
+        int time = 0;
 
         for (int i = 0; i < tickets.length; i++) {
-            queue.offer(new int[] {i, tickets[i]});
+            queue.offer(new int[]{i, tickets[i]});
         }
 
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int[] current = queue.poll();
             int person = current[0];
             int left = current[1];
 
-            if (left == 0){
+            if (left == 0) {
                 continue;
             }
 
-            time ++;
+            time++;
 
-            left --;
+            left--;
 
             if (left == 0 && person == k)
                 break;
 
-            queue.offer(new int[] {person, left});
+            queue.offer(new int[]{person, left});
 
         }
 
@@ -862,37 +856,37 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         list.add(deck[deck.length - 1]);
 
         for (int i = deck.length - 2; i >= 0; i--) {
-                list.add(0, deck[i]);
-                index ++;
-                int temp = list.get(index);
-                list.remove(index);
-                list.add( 1, temp);
-            }
+            list.add(0, deck[i]);
+            index++;
+            int temp = list.get(index);
+            list.remove(index);
+            list.add(1, temp);
+        }
 
         return list.stream().mapToInt(Integer::intValue).toArray();
-        }
+    }
 
     public String removeKdigits(String num, int k) {
         Stack<Character> stack = new Stack<>();
-        for (char digit : num.toCharArray()){
-            while (!stack.isEmpty() && stack.peek() > digit && k > 0){
+        for (char digit : num.toCharArray()) {
+            while (!stack.isEmpty() && stack.peek() > digit && k > 0) {
                 stack.pop();
-                k --;
+                k--;
             }
 
             stack.push(digit);
         }
 
-        while (k > 0 && !stack.isEmpty()){
+        while (k > 0 && !stack.isEmpty()) {
             stack.pop();
-            k --;
+            k--;
         }
         StringBuilder stringBuilder = new StringBuilder();
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             stringBuilder.append(stack.pop());
         }
         stringBuilder = stringBuilder.reverse();
-        while( stringBuilder.length() > 0 && stringBuilder.charAt(0) == '0'){
+        while (stringBuilder.length() > 0 && stringBuilder.charAt(0) == '0') {
             stringBuilder.deleteCharAt(0);
         }
 
@@ -906,14 +900,14 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         int rightMax = height[right];
         int sum = 0;
 
-        while (left < right){
-            if (leftMax <= rightMax){
+        while (left < right) {
+            if (leftMax <= rightMax) {
                 sum += (leftMax - height[left]);
-                left ++;
+                left++;
                 leftMax = Math.max(leftMax, height[left]);
             } else {
                 sum += (rightMax - height[right]);
-                right --;
+                right--;
                 rightMax = Math.max(rightMax, height[right]);
             }
         }
@@ -926,11 +920,11 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
     }
 
     private int dfs(TreeNode root, int currentSum) {
-        if (root == null){
+        if (root == null) {
             return 0;
         }
         currentSum = currentSum * 10 + root.val;
-        if (root.left == null && root.right == null){
+        if (root.left == null && root.right == null) {
             return currentSum;
         }
         return dfs(root.left, currentSum) + dfs(root.right, currentSum);
@@ -938,27 +932,27 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
 
     public int maxFrequency(int[] nums, int k) {
         int left = 0;
-        int right  = 0;
+        int right = 0;
         int sum = 0;
         int maxFreq = 0;
 
         Arrays.sort(nums);
 
-        while(right < nums.length){
+        while (right < nums.length) {
             sum += nums[right];
-            while ((right - left + 1) * nums[right] - sum > k ){
+            while ((right - left + 1) * nums[right] - sum > k) {
                 sum -= nums[left];
-                left ++;
+                left++;
             }
 
             maxFreq = Math.max(maxFreq, right - left + 1);
-            right ++;
+            right++;
         }
-         return maxFreq;
+        return maxFreq;
     }
 
     public TreeNode addOneRow(TreeNode root, int val, int depth) {
-        if (depth == 1){
+        if (depth == 1) {
             TreeNode treeNode = new TreeNode(val);
             treeNode.left = root;
             return treeNode;
@@ -967,12 +961,12 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         return add(root, val, depth, 1);
     }
 
-    private TreeNode add(TreeNode root, int val, int depth, int cur){
-        if (root == null){
+    private TreeNode add(TreeNode root, int val, int depth, int cur) {
+        if (root == null) {
             return root;
         }
 
-        if (cur == depth - 1){
+        if (cur == depth - 1) {
             TreeNode leftTemp = root.left;
             TreeNode rightTemp = root.right;
             root.left = new TreeNode(val);
@@ -993,18 +987,18 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         int count = 1;
         int sum = 0;
 
-       Arrays.sort(nums);
+        Arrays.sort(nums);
 
-       for (int i = nums.length - 2; i >= 0; i--){
-           if (nums[i] == nums[i + 1]){
-               count ++;
-           } else {
-               sum = sum + count;
-               count = 1;
-           }
-       }
+        for (int i = nums.length - 2; i >= 0; i--) {
+            if (nums[i] == nums[i + 1]) {
+                count++;
+            } else {
+                sum = sum + count;
+                count = 1;
+            }
+        }
 
-       return sum;
+        return sum;
     }
 
     public String smallestFromLeaf(TreeNode root) {
@@ -1019,9 +1013,9 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
 
         path.append((char) 'a' + root.val);
 
-        if (root.right == null && root.left == null){
+        if (root.right == null && root.left == null) {
             String current = path.reverse().toString();
-            if (smallest.length() == 0 || current.compareTo(smallest.toString()) < 0){
+            if (smallest.length() == 0 || current.compareTo(smallest.toString()) < 0) {
                 smallest.setLength(0);
                 smallest.append(current);
             }
@@ -1043,10 +1037,10 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 1) {
                     perimeter = perimeter + 4;
-                    if (i > 0 && grid[i - 1][j] == 1){
+                    if (i > 0 && grid[i - 1][j] == 1) {
                         perimeter = perimeter - 2;
                     }
-                    if (j > 0 && grid[i][j - 1] == 1){
+                    if (j > 0 && grid[i][j - 1] == 1) {
                         perimeter = perimeter - 2;
                     }
                 }
@@ -1063,8 +1057,8 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (grid[i][j] == '1'){
-                    islandNum ++;
+                if (grid[i][j] == '1') {
+                    islandNum++;
                     dfsNumOfIsland(grid, i, j);
                 }
             }
@@ -1073,7 +1067,7 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
     }
 
     private void dfsNumOfIsland(char[][] grid, int i, int j) {
-        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] != '1'){
+        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] != '1') {
             return;
         }
 
@@ -1085,12 +1079,72 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         dfsNumOfIsland(grid, i, j - 1);
     }
 
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        List<Integer> result = new ArrayList<>();
+        int[] degree = new int[n];
 
-    public static void main(String[] args) {
-      int [][] grid = {{0}};
-      new Leetcode().islandPerimeter(grid);
+        if (n <= 1) {
+            result.add(0);
+            return result;
+        }
+
+        for (int i = 0; i < n; i++) {
+            map.put(i, new ArrayList<>());
+        }
+
+        for (int[] edge : edges) {
+            map.get(edge[0]).add(edge[1]);
+            map.get(edge[1]).add(edge[0]);
+            degree[edge[0]]++;
+            degree[edge[1]]++;
+        }
+
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < degree.length; i++) {
+            if (degree[i] == 1) {
+                queue.offer(i);
+            }
+        }
+
+        while (n > 2) {
+            int size = queue.size();
+            n = n - size;
+            for (int i = 0; i < size; i++) {
+                int leaf = queue.poll();
+                for (int neibor : map.get(leaf)) {
+                    degree[neibor]--;
+                    if (degree[neibor] == 1)
+                        queue.offer(neibor);
+                }
+            }
+        }
+
+        result.addAll(queue);
+        return result;
     }
 
+    public static int tribonacci(int n) {
+        if (n == 0)
+            return 0;
+        else if (n == 1 || n == 2)
+            return 1;
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 1;
+
+        for (int i = 3; i < n + 1; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
+        }
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+        int n = 4;
+        System.out.println(tribonacci(n));
+    }
+}
 //    17
 //    13 17
 //    11 13 17 => 11 17 13
@@ -1098,6 +1152,6 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
 //    5 7 13 11 17 => 5 17 7 13 11
 
 
-}
+
 
 
