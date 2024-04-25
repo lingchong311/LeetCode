@@ -1140,9 +1140,72 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         return dp[n];
     }
 
+    public static int[][] findFarmland(int[][] land) {
+        int m = land.length;
+        int n = land[0].length;
+        List<int[]> list = new ArrayList<>();
+
+        for (int i = 0; i < m; i++){
+            for (int j = 0; j < n; j++) {
+                int[] farmLand = new int[4];
+                if(land[i][j] == 1){
+                    dfsFindFarmland(land, i, j, farmLand);
+                    list.add(farmLand);
+                }
+            }
+        }
+        int[][] reselt = new int[list.size()][4];
+        for (int i = 0; i < list.size(); i++) {
+            reselt[i] = list.get(i);
+        }
+
+        return reselt;
+    }
+
+    private static void dfsFindFarmland(int[][] land, int i, int j, int[] farmLand) {
+        if (i < 0 || i >= land.length || j < 0 || j >= land[0].length || land[i][j] != 1)
+            return;
+
+        land[i][j] = 0;
+
+       if (farmLand[0] == 0 && farmLand[1] == 0){
+           farmLand[0] = i;
+           farmLand[1] = j;
+       }
+
+       farmLand[2] = Math.max(farmLand[2], i);
+       farmLand[3] = Math.max(farmLand[3], j);
+
+        dfsFindFarmland(land, i + 1, j, farmLand);
+        dfsFindFarmland(land, i, j + 1, farmLand);
+    }
+
+    public int longestIdealString(String s, int k) {
+        int[] dp = new int[26];
+        int max = Integer.MIN_VALUE;
+
+        for (int i = s.length() - 1; i >= 0; i --){
+            int temp_max = Integer.MIN_VALUE;
+            int idx = s.charAt(i) - 'a';
+            int left = Math.max(0, idx - k);
+            int right = Math.min(26, idx + k);
+
+            for (int j = left; j <= right; j++){
+                temp_max = Math.max(temp_max, dp[j]);
+            }
+            dp[idx] = temp_max + 1;
+        }
+
+        for (int i : dp){
+            max = Math.max(i, max);
+        }
+
+        return max;
+    }
+
     public static void main(String[] args) {
-        int n = 4;
-        System.out.println(tribonacci(n));
+        int[][] land = {{1,1}, {1,1}};
+        System.out.println(findFarmland(land));
     }
 }
 //    17
