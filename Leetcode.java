@@ -1203,6 +1203,43 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         return max;
     }
 
+    public int minOperations(int[] nums, int k) {
+        int res = 0;
+        for (int n : nums){
+            res = res ^ n;
+        }
+        int count  = 0;
+        while (res > 0 || k > 0){
+            if (res % 2 != k % 2){
+                count ++;
+            }
+            res /= 2;
+            k /= 2;
+        }
+        return count;
+    }
+
+    public int longestOnes(int[] nums, int k) {
+        int left = 0;
+        int right = 0;
+        int numOf0 = 0;
+        int sum = 0;
+        for (right = 0; right < nums.length; right ++){
+            if (nums[right] == 0){
+                numOf0++;
+            }
+            if (numOf0 > k){
+                if (nums[left] == 0)
+                    numOf0--;
+                left++;
+            }
+            if (numOf0 <= k){
+                sum = Math.max(sum, (right - left + 1));
+            }
+        }
+        return sum;
+    }
+
     public static void main(String[] args) {
         int[][] land = {{1,1}, {1,1}};
         System.out.println(findFarmland(land));
