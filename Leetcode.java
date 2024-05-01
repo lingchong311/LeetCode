@@ -1240,6 +1240,41 @@ I: 7 - 2 -> 7 - 2 -2      -> 7-2-2-2
         return sum;
     }
 
+    public int longestSubarray(int[] nums) {
+        int left = 0;
+        int zeros = 0;
+        int result = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0)
+                zeros++;
+            while (zeros > 1){
+                if (nums[left] == 0)
+                    zeros--;
+                left++;
+            }
+            result = Math.max(result, (i - left + 1 -zeros));
+        }
+        return result == nums.length ? result - 1 : result;
+    }
+
+    public String reversePrefix(String word, char ch) {
+        StringBuilder wordSb = new StringBuilder(word);
+        StringBuilder pre = new StringBuilder();
+        int chIndex = 0;
+        for (int i = 0; i < wordSb.length(); i++) {
+            pre.append(wordSb.charAt(i));
+            if (wordSb.charAt(i) == ch) {
+                chIndex = i;
+                break;
+            }
+        }
+        if (chIndex == 0)
+            return word;
+        wordSb.delete(0, chIndex + 1);
+        return pre.reverse().append(wordSb).toString();
+
+    }
+
     public static void main(String[] args) {
         int[][] land = {{1,1}, {1,1}};
         System.out.println(findFarmland(land));
